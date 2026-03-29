@@ -138,6 +138,8 @@ darkMode.addEventListener("click",function(){
 
 // connecting frontend with backend
 let form = document.getElementById("contactForm");
+const apiBaseUrl = window.location.port === "3000" ? "" : "http://localhost:3000";
+
 form.addEventListener("submit", async function(event) {
   event.preventDefault();
 
@@ -150,7 +152,7 @@ form.addEventListener("submit", async function(event) {
   sendBtn.textContent = "Sending...";
 
   try {
-    const response = await fetch("/api/contact", {
+    const response = await fetch(`${apiBaseUrl}/api/contact`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -158,15 +160,20 @@ form.addEventListener("submit", async function(event) {
       body: JSON.stringify({ name, email, message })
     });
 
+    const contentType = response.headers.get("content-type") || "";
+    const result = contentType.includes("application/json")
+      ? await response.json()
+      : { error: await response.text() };
+
     if (!response.ok) {
-      throw new Error("Failed to send message");
+      throw new Error(result.error || "Failed to send message");
     }
 
-    alert("Message sent successfully.");
+    alert(result.message || "Message sent successfully.");
     form.reset();
   } catch (error) {
     console.error(error);
-    alert("There was an error sending your message. Please try again.");
+    alert(error.message || "There was an error sending your message. Please try again.");
   } finally {
     sendBtn.disabled = false;
     sendBtn.innerHTML = 'Send <i class="uil uil-message"></i>';

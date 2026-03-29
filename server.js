@@ -8,18 +8,38 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const SMTP_USER = process.env.SMTP_USER;
+const SMTP_PASS = process.env.SMTP_PASS;
+const SMTP_FROM = process.env.SMTP_FROM || SMTP_USER;
+const CONTACT_RECEIVER = process.env.CONTACT_RECEIVER || SMTP_USER;
+
 app.use(express.json({ limit: "100kb" }));
 app.use(express.urlencoded({ extended: false }));
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204);
+  }
+  next();
+});
+
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
+    return res.status(400).json({ error: "Invalid JSON payload." });
+  }
+  return next(err);
+});
 
 app.use(express.static(path.join(__dirname)));
 
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT),
-  secure: process.env.SMTP_SECURE === "true",
+ service: "gmail",
   auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS
+    user: SMTP_USER,
+    pass: SMTP_PASS
   }
 });
 
@@ -29,6 +49,12 @@ function isValidEmail(email) {
 
 app.post("/api/contact", async (req, res) => {
   const { name, email, message } = req.body;
+
+  if (!SMTP_USER || !SMTP_PASS || !CONTACT_RECEIVER) {
+    return res.status(500).json({
+      error: "Email service is not configured. Set SMTP_USER, SMTP_PASS and CONTACT_RECEIVER in .env."
+    });
+  }
 
   if (!name || !email || !message) {
     return res.status(400).json({ error: "All fields are required." });
@@ -42,8 +68,8 @@ app.post("/api/contact", async (req, res) => {
     const subject = `New portfolio message from ${name}`;
 
     await transporter.sendMail({
-      from: process.env.SMTP_FROM,
-      to: process.env.CONTACT_RECEIVER,
+      from: SMTP_FROM,
+      to: CONTACT_RECEIVER,
       replyTo: email,
       subject,
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
@@ -59,11 +85,11 @@ app.post("/api/contact", async (req, res) => {
     return res.status(200).json({ message: "Message sent successfully." });
   } catch (error) {
     console.error("Email send error:", error);
-    return res.status(500).json({ error: "Failed to send message." });
+    return res.status(500).json({ error: `Failed to send message. ${error.message}` });
   }
 });
 
-app.get("*", (req, res) => {
+app.get("/{*any}", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
