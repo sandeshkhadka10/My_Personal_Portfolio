@@ -2,6 +2,7 @@ const path = require("path");
 const express = require("express");
 const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
+const cors = require("cors");
 
 dotenv.config();
 
@@ -16,22 +17,7 @@ const CONTACT_RECEIVER = process.env.CONTACT_RECEIVER || SMTP_USER;
 app.use(express.json({ limit: "100kb" }));
 app.use(express.urlencoded({ extended: false }));
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(204);
-  }
-  next();
-});
-
-app.use((err, req, res, next) => {
-  if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
-    return res.status(400).json({ error: "Invalid JSON payload." });
-  }
-  return next(err);
-});
+app.use(cors());
 
 app.use(express.static(path.join(__dirname)));
 
