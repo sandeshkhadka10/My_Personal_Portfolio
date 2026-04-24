@@ -4,7 +4,8 @@ const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
 const cors = require("cors");
 
-dotenv.config();
+// Load environment variables from the .env file one folder above the current script.
+dotenv.config({ path: path.join(__dirname, "..", ".env") });
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -19,7 +20,8 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(cors());
 
-app.use(express.static(path.join(__dirname)));
+const frontendDir = path.join(__dirname, "..", "frontend");
+app.use(express.static(frontendDir));
 
 const transporter = nodemailer.createTransport({
  service: "gmail",
@@ -76,7 +78,7 @@ app.post("/api/contact", async (req, res) => {
 });
 
 app.get("/{*any}", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.sendFile(path.join(frontendDir, "index.html"));
 });
 
 app.listen(PORT, () => {
