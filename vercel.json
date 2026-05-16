@@ -6,6 +6,11 @@
       "use": "@vercel/node"
     }
   ],
+  "functions": {
+    "backend/server.js": {
+      "includeFiles": "frontend/**"
+    }
+  },
   "routes": [
     {
       "src": "/api/(.*)",
