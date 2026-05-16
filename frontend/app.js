@@ -138,7 +138,8 @@ darkMode.addEventListener("click",function(){
 
 // connecting frontend with backend
 let form = document.getElementById("contactForm");
-const apiBaseUrl = window.location.port === "3000" ? "" : "http://localhost:3000";
+const isLocalhost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+const apiBaseUrl = isLocalhost ? "http://localhost:3000" : "";
 
 form.addEventListener("submit", async function(event) {
   event.preventDefault();

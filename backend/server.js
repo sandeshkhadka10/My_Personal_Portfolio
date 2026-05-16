@@ -77,10 +77,14 @@ app.post("/api/contact", async (req, res) => {
   }
 });
 
-app.get("/{*any}", (req, res) => {
+app.get("*", (req, res) => {
   res.sendFile(path.join(frontendDir, "index.html"));
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
