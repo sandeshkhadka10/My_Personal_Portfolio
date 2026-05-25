@@ -60,6 +60,8 @@ sr.reveal('.featured-image',{delay: 300})
 
 /* -- PROJECT BOX -- */
 sr.reveal('.project-box',{interval: 200})
+sr.reveal('.education-card',{interval: 160})
+sr.reveal('.experience-card',{interval: 160})
 
 /* -- HEADINGS -- */
 sr.reveal('.top-header',{})
@@ -75,7 +77,7 @@ reset: true
 })
 
 srLeft.reveal('.about-info',{delay: 100})
-srLeft.reveal('.contact-info',{delay: 100})
+srLeft.reveal('.contact-card',{interval: 120})
 
 /* -- ABOUT SKILLS & FORM BOX -- */
 const srRight = ScrollReveal({
@@ -86,7 +88,6 @@ reset: true
 })
 
 srRight.reveal('.skills-box',{delay: 100})
-srRight.reveal('.form-control',{delay: 100})
 
 
 
@@ -116,13 +117,15 @@ sections.forEach(current =>{
 
 window.addEventListener('scroll', scrollActive)
 
-// Triggering Contact form when clicking Hire Me button
+// Jump to contact section when clicking Hire Me button
 let hireMeBtn = document.getElementById("hireMeBtn");
-let contactForm = document.getElementById("contactForm");
+let contactSection = document.getElementById("contact");
 
-hireMeBtn.addEventListener("click", () => {
-    contactForm.scrollIntoView({ behavior : "smooth"});
-});
+if (hireMeBtn && contactSection) {
+  hireMeBtn.addEventListener("click", () => {
+    contactSection.scrollIntoView({ behavior : "smooth"});
+  });
+}
 
 
 // making darkmode and lightmode feature
@@ -133,50 +136,5 @@ darkMode.addEventListener("click",function(){
     icon.src = "assests/sun.png";
   }else{
     icon.src = "assests/moon.png";
-  }
-});
-
-// connecting frontend with backend
-let form = document.getElementById("contactForm");
-const isLocalhost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
-const apiBaseUrl = isLocalhost ? "http://localhost:3000" : "";
-
-form.addEventListener("submit", async function(event) {
-  event.preventDefault();
-
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const message = document.getElementById("message").value.trim();
-  const sendBtn = document.getElementById("send");
-
-  sendBtn.disabled = true;
-  sendBtn.textContent = "Sending...";
-
-  try {
-    const response = await fetch(`${apiBaseUrl}/api/contact`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ name, email, message })
-    });
-
-    const contentType = response.headers.get("content-type") || "";
-    const result = contentType.includes("application/json")
-      ? await response.json()
-      : { error: await response.text() };
-
-    if (!response.ok) {
-      throw new Error(result.error || "Failed to send message");
-    }
-
-    alert(result.message || "Message sent successfully.");
-    form.reset();
-  } catch (error) {
-    console.error(error);
-    alert(error.message || "There was an error sending your message. Please try again.");
-  } finally {
-    sendBtn.disabled = false;
-    sendBtn.innerHTML = 'Send <i class="uil uil-message"></i>';
   }
 });

@@ -217,18 +217,47 @@ body.dark-mode .project-links a:hover {
     border-color: var(--second-color);
 }
 
-/* Contact Section */
-body.dark-mode .contact-info {
-    background: var(--second-color);
-    color: var(--text-color-second);
-    box-shadow: 1px 8px 15px rgba(0, 0, 0, 0.5);
+body.dark-mode .education-card,
+body.dark-mode .experience-card {
+    background: rgb(33, 33, 33);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
 }
-body.dark-mode .contact-info:hover::after {
-    background: var(--color-white);
-}
-body.dark-mode .contact-info h2,
-body.dark-mode .contact-info p {
+body.dark-mode .education-header h3,
+body.dark-mode .education-school,
+body.dark-mode .education-period,
+body.dark-mode .experience-header h3,
+body.dark-mode .experience-company,
+body.dark-mode .experience-period {
     color: var(--color-white);
+}
+body.dark-mode .education-desc,
+body.dark-mode .experience-desc {
+    color: #c9c9c9;
+}
+body.dark-mode .education-tags span,
+body.dark-mode .experience-tags span {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.18);
+    color: #f2f2f2;
+}
+
+/* Contact Section */
+body.dark-mode .contact-card {
+    background: rgb(33, 33, 33);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+    color: var(--color-white);
+}
+body.dark-mode .contact-card:hover {
+    border-color: var(--second-color);
+}
+body.dark-mode .contact-details h3,
+body.dark-mode .contact-details p {
+    color: var(--color-white);
+}
+body.dark-mode .contact-icon {
+    background: var(--first-color);
 }
 
 /* Input Section */
@@ -315,6 +344,10 @@ nav{
 .nav-menu, .nav_menu_list{
     display: flex;
 }
+.nav-menu{
+    align-items: center;
+    gap: 10px;
+}
 .nav-menu .nav_list{
     list-style: none;
     position: relative;
@@ -323,16 +356,32 @@ nav{
     text-decoration: none;
     color: var(--text-color-second);
     font-weight: 500;
-    padding-inline: 15px;
-    margin-inline: 20px;
+    padding-inline: 10px;
+    margin-inline: 10px;
 }
 .nav-menu-btn{
     display: none;
+}
+.nav-actions{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.nav-button{
+    display: flex;
+    align-items: center;
 }
 .nav-button a{
     color: var(--text-color-second);
     font-weight: 500;
     font-size: 15px;
+}
+.nav-button .btn{
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    padding: 12px 20px;
+    border-radius: 10px;
 }
 .btn{
     text-decoration: none;
@@ -363,9 +412,6 @@ nav{
     width: 30px;
     height: 30px;
     cursor: pointer;
-    position: relative;
-    top: 24px;
-    left: 90%;
 }
 
 
@@ -654,43 +700,128 @@ h3{
     opacity: .85;
 }
 
-/* ----- CONTACT BOX ----- */
-.contact-info{
-    position: relative;
+/* ----- EDUCATION / EXPERIENCE BOX ----- */
+.education-container,
+.experience-container{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(280px, 1fr));
+    width: 100%;
+    gap: 24px;
+}
+.education-card,
+.experience-card{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 30px;
+    gap: 10px;
+    background: var(--color-white);
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 22px var(--first-shadow-color);
+    padding: 22px 20px;
+    transition: transform .28s ease, box-shadow .28s ease;
+}
+.education-card:hover,
+.experience-card:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.16);
+}
+.education-header,
+.experience-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+}
+.education-header h3,
+.experience-header h3{
+    font-size: 20px;
+    color: var(--text-color-second);
+}
+.education-period,
+.experience-period{
+    font-size: 14px;
+    color: #777;
+    white-space: nowrap;
+}
+.education-school,
+.experience-company{
+    font-weight: 600;
+    color: var(--text-color-second);
+}
+.education-desc,
+.experience-desc{
+    color: #5f5f5f;
+    font-size: 15px;
+    line-height: 1.6;
+}
+.education-tags,
+.experience-tags{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+}
+.education-tags span,
+.experience-tags span{
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid #d8d8d8;
+    background: #f4f6f8;
+    color: var(--text-color-second);
+}
+
+/* ----- CONTACT BOX ----- */
+.contact-col{
     width: 100%;
-    height: 315px;
-    background: var(--second-color);
-    border-radius: 10px;
-    box-shadow: 1px 8px 10px 2px var(--first-shadow-color);
-    overflow: hidden;
 }
-.contact-info>h2{
-    color: var(--color-white);
-    margin-bottom: 20px;
+.contact-cards{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 20px;
+    width: 100%;
 }
-.contact-info>p{
+.contact-card{
     display: flex;
     align-items: center;
-    gap: 10px;
-    color: var(--color-white);
-    margin-block: 5px;
-}
-.contact-info p>i{
-    font-size: 18px;
-}
-.contact-info::after{
+    gap: 16px;
+    padding: 18px 20px;
+    text-decoration: none;
     background: var(--color-white);
+    border-radius: 12px;
+    border: 1px solid #e6e6e6;
+    box-shadow: 0 6px 14px var(--first-shadow-color);
+    color: var(--text-color-second);
+    transition: transform .3s, box-shadow .3s, border-color .3s;
 }
-.contact-info:hover.contact-info h2,
-.contact-info:hover.contact-info p,
-.contact-info:hover.contact-info i{
-    color: #777;
-    z-index: 2;
+.contact-card:hover{
+    transform: translateY(-4px);
+    border-color: var(--second-color);
+    box-shadow: 0 10px 20px var(--first-shadow-color);
+}
+.contact-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--second-color);
+    color: var(--color-white);
+    flex-shrink: 0;
+}
+.contact-icon i{
+    font-size: 20px;
+}
+.contact-details h3{
+    font-size: 16px;
+    margin-bottom: 4px;
+    color: var(--text-color-second);
+}
+.contact-details p{
+    font-size: 14px;
+    color: var(--text-color-second);
 }
 
 /* ----- CONTACT FORM ----- */
@@ -795,16 +926,9 @@ footer{
 /* ----- MEDIA QUERY == 900px / RESPONSIVE ----- */
 @media only screen and (max-width: 900px) {
     #icon {
-        position: absolute; 
-        top: 80%;
-        left: 47%;
-        width: 40px;
-        height: 40px;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: .3s;
+        position: static;
+        width: 34px;
+        height: 34px;
     }
     .nav-button{
         display: none;
@@ -872,10 +996,15 @@ footer{
         width: 100%;
         gap: 0px;
     }
-    .about-info, .contact-info{
+    .about-info, .contact-cards{
         width: 100%;
     }
     .project-container{
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+    .education-container,
+    .experience-container{
         grid-template-columns: 1fr;
         gap: 18px;
     }
@@ -891,6 +1020,15 @@ footer{
     .project-card{
         min-height: 230px;
         padding: 18px;
+    }
+    .education-card,
+    .experience-card{
+        padding: 18px;
+    }
+    .education-header,
+    .experience-header{
+        flex-direction: column;
+        align-items: flex-start;
     }
     .project-card h3{
         font-size: 20px;
