@@ -161,13 +161,15 @@ body.dark-mode .scroll-icon-box #scrollDownPara{
 
 /* About Section */
 body.dark-mode .about-info {
-    background: var(--color-white);
+    background: rgb(33, 33, 33);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
 }
 body.dark-mode .about-info h3{
-    color: var(--body-color);
+    color: var(--color-white);
 }
 body.dark-mode .about-info #p{
-    color: var(--body-color);
+    color: #c9c9c9;
 }
 body.dark-mode .about-btn .btn{
     background-color: var(--first-color);
@@ -184,7 +186,7 @@ body.dark-mode #introCV:hover{
     background-color: var(--second-color);
 }
 body.dark-mode .about-info p {
-    color: rgb(180, 180, 180);
+    color: #c9c9c9;
 }
 
 /* Skills Section */
@@ -583,7 +585,7 @@ h3{
     margin-bottom: 2.5em;
 }
 #about .row{
-    align-items: flex-start;
+    align-items: center;
 }
 .about-info{
     position: relative;
@@ -591,7 +593,7 @@ h3{
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    gap: 14px;
+    gap: 5px;
     padding: 24px 22px;
     width: 100%;
     background: var(--color-white);
@@ -620,8 +622,17 @@ h3{
 }
 
 /* ----- ABOUT / SKILLS BOX ----- */
+.col:last-child{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-content: start;
+    gap: 20px;
+}
+.col:first-child{
+    align-items: center;
+}
 .skills-box{
-    margin: 10px;
+    margin: 0;
 }
 .skills-header{
     margin-bottom: 30px;
@@ -701,10 +712,17 @@ h3{
 }
 
 /* ----- EDUCATION / EXPERIENCE BOX ----- */
-.education-container,
+.education-container{
+    display: grid;
+    grid-template-columns: minmax(280px, 720px);
+    justify-content: center;
+    width: 100%;
+    gap: 24px;
+}
 .experience-container{
     display: grid;
-    grid-template-columns: repeat(2, minmax(280px, 1fr));
+    grid-template-columns: minmax(280px, 720px);
+    justify-content: center;
     width: 100%;
     gap: 24px;
 }
@@ -773,14 +791,28 @@ h3{
 }
 
 /* ----- CONTACT BOX ----- */
-.contact-col{
-    width: 100%;
+#contact{
+    min-height: 40vh;
+    padding-block: 4em 2.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
-.contact-cards{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 20px;
+#contact .row{
     width: 100%;
+    justify-content: center;
+}
+#contact .contact-col{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+#contact .contact-cards{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    width: min(100%, 900px);
 }
 .contact-card{
     display: flex;
@@ -996,8 +1028,18 @@ footer{
         width: 100%;
         gap: 0px;
     }
+    .col:last-child{
+        display: flex;
+        flex-direction: column;
+    }
     .about-info, .contact-cards{
         width: 100%;
+    }
+    #contact{
+        min-height: auto;
+    }
+    #contact .contact-cards{
+        grid-template-columns: 1fr;
     }
     .project-container{
         grid-template-columns: 1fr;
