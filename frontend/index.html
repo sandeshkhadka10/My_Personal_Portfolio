@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sandesh</title>
+
+    <!-- linking css with html -->
+    <link rel="stylesheet" href="index.css" />
+
+    <!-- adding icon at the side of title -->
+    <link rel="icon" href="./assests/sandesh khadka.png" />
+
+    <!-- this is done to include icons -->
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
+    />
+
+    <!-- this is done to include google font of type poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- --------------- HEADER --------------- -->
+      <nav id="header">
+        <div class="nav-logo">
+          <p class="nav-name">Sandesh</p>
+          <span>.</span>
+        </div>
+        <div class="nav-menu" id="myNavMenu">
+          <ul class="nav_menu_list">
+            <li class="nav_list">
+              <a href="#home" class="nav-link active-link">Home</a>
+              <div class="circle"></div>
+            </li>
+            <li class="nav_list">
+              <a href="#about" class="nav-link">About</a>
+              <div class="circle"></div>
+            </li>
+            <li class="nav_list">
+              <a href="#education" class="nav-link">Education</a>
+              <div class="circle"></div>
+            </li>
+            <li class="nav_list">
+              <a href="#experience" class="nav-link">Experience</a>
+              <div class="circle"></div>
+            </li>
+            <li class="nav_list">
+              <a href="#projects" class="nav-link">Projects</a>
+              <div class="circle"></div>
+            </li>
+            <li class="nav_list">
+              <a href="#contact" class="nav-link">Contact</a>
+              <div class="circle"></div>
+            </li>
+          </ul>
+        </div>
+        <div class="nav-actions">
+          <div class="nav-button">
+            <a href="assests/Sandesh Latest.pdf" download class="btn"
+              >Download CV<i class="uil uil-file-alt"></i
+            ></a>
+          </div>
+          <img src="./assests/moon.png" alt="moon" id="icon" />
+        </div>
+        <div class="nav-menu-btn">
+          <i class="uil uil-bars" onclick="myMenuFunction()"></i>
+        </div>
+      </nav>
+
+      <!-- -------------- MAIN ---------------- -->
+      <main class="wrapper">
+        <!-- -------------- FEATURED BOX ---------------- -->
+        <section class="featured-box" id="home">
+          <div class="featured-text">
+            <div class="featured-name">
+              <p>Learn <span class="typedText"></span></p>
+            </div>
+            <div class="featured-text-info">
+              <p>
+                Transforming 'Hello World' into 'Hello Universe' - because I aim
+                for more.
+              </p>
+            </div>
+            <div class="featured-text-btn">
+              <button class="btn blue-btn" id="hireMeBtn">Hire Me</button>
+              <a href="assests/Sandesh Latest.pdf" download class="btn"
+                >Download CV<i class="uil uil-file-alt"></i
+              ></a>
+            </div>
+          </div>
+          <div class="featured-image">
+            <div class="image">
+              <img src="./assests/1628960503781.jpg" alt="profile pic" />
+            </div>
+          </div>
+          <div class="scroll-icon-box">
+            <a href="#about" class="scroll-btn">
+              <i class="uil uil-mouse-alt" id="mouse"></i>
+              <p id="scrollDownPara">Scroll Down</p>
+            </a>
+          </div>
+        </section>
+
+        <!-- -------------- ABOUT BOX ---------------- -->
+        <section class="section" id="about">
+          <div class="top-header">
+            <h1>About Me</h1>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="about-info">
+                <h3>My introduction</h3>
+                <p id="p">
+                  I am a Full-Stack Developer who loves to code and solve
+                  problems.
+                </p>
+              </div>
+            </div>
+
+            <!-- -------------- Skills ---------------- -->
+            <div class="col">
+              <div class="skills-box">
+                <div class="skills-header">
+                  <h3>Programming Languages</h3>
+                </div>
+                <div class="skills-list">
+                  <span>JavaScript</span>
+                  <span>TypeSccript</span>
+                  <span>Python</span>
+                </div>
+              </div>
+              <div class="skills-box">
+                <div class="skills-header">
+                  <h3>Frameworks & Library</h3>
+                </div>
+                <div class="skills-list">
+                  <span>Express.js</span>
+                  <span>React.js</span>
+                  <span>Next.js</span>
+                  <span>Django</span>
+                </div>
+              </div>
+              <div class="skills-box">
+                <div class="skills-header">
+                  <h3>Database</h3>
+                </div>
+                <div class="skills-list">
+                  <span>MongoDB</span>
+                  <span>PostgreSQL</span>
+                </div>
+              </div>
+              <div class="skills-box">
+                <div class="skills-header">
+                  <h3>Technologies</h3>
+                </div>
+                <div class="skills-list">
+                  <span>HTML5</span>
+                  <span>CSS3</span>
+                  <span>Node.js</span>
+                  <span>Git & GitHub</span>
+                  <span>Docker</span>
+                  <span>Postman</span>
+                  <span>Figma</span>
+                  <span>Adobe Photoshop</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- -------------- EDUCATION BOX ---------------- -->
+        <section class="section" id="education">
+          <div class="top-header">
+            <h1>Education</h1>
+            <span>Academic background and certifications</span>
+          </div>
+          <div class="education-container">
+            <article class="education-card">
+              <div class="education-header">
+                <h3>Bachelor in Information Technology</h3>
+                <span class="education-period">2022 - 2026</span>
+              </div>
+              <p class="education-school">KIST College</p>
+              <p class="education-desc">Relevant Courseworks</p>
+              <div class="education-tags">
+                <span>Web Technology</span>
+                <span>Operating System</span>
+                <span>Software Engineering</span>
+                <span>Database Management System</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- -------------- EXPERIENCE BOX ---------------- -->
+        <section class="section" id="experience">
+          <div class="top-header">
+            <h1>Experience</h1>
+            <span>Highlights from my recent work</span>
+          </div>
+          <div class="experience-container">
+            <article class="experience-card">
+              <div class="experience-header">
+                <h3>Software Developer Intern</h3>
+                <span class="experience-period">Feb 2026 - Present</span>
+              </div>
+              <p class="experience-company">KonnectCraft</p>
+              <p class="experience-desc">
+                Contributed to production CRM features across React/TypeScript
+                frontend and Python-based backend services. Improved form
+                validation, messaging workflows, and activity tracking by
+                implementing reusable UI components, schema-based input
+                handling, and backend logging systems. Delivered bug fixes and
+                enhancements that increased data accuracy, usability, and system
+                reliability in an agile development environment.
+              </p>
+              <div class="experience-tags">
+                <span>React</span>
+                <span>TypeScript</span>
+                <span>Python</span>
+                <span>Django</span>
+                <span>PostgreSQL</span>
+                <span>Docker</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- -------------- PROJECT BOX ---------------- -->
+        <section class="section" id="projects">
+          <div class="top-header">
+            <h1>Projects</h1>
+          </div>
+          <div class="project-container">
+            <div class="project-card">
+              <h3>Stay Nepal</h3>
+              <p>
+                StayNepal aims to serve people by providing a web platform for
+                hotel booking services tailored to the Nepali community,
+                offering accommodations across various categories to match
+                different needs and budgets.
+              </p>
+              <div class="project-links">
+                <a
+                  href="https://github.com/sandeshkhadka10/StayNepal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >GitHub</a
+                >
+                <a
+                  href="https://staynepal.onrender.com/listing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Live</a
+                >
+              </div>
+            </div>
+            <div class="project-card">
+              <h3>Stock Trading Platform</h3>
+              <p>
+                A comprehensive MERN-based stock trading platform inspired by
+                ZERODHA, designed to provide users with hands-on learning of
+                trading mechanisms, portfolio management, and stock market
+                fundamentals using static stock data.
+              </p>
+              <div class="project-links">
+                <a
+                  href="https://github.com/sandeshkhadka10/Stock-Trading-Platform"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >GitHub</a
+                >
+              </div>
+            </div>
+            <div class="project-card">
+              <h3>Meetly</h3>
+              <p>
+                Meetly is a simple and efficient video calling and messaging
+                platform built with WebRTC for peer-to-peer media transmission
+                and Socket.io for signaling and real-time communication. It
+                allows users to create or join rooms for seamless video calls
+                and messaging.
+              </p>
+              <div class="project-links">
+                <a
+                  href="https://github.com/sandeshkhadka10/Meetly"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >GitHub</a
+                >
+              </div>
+            </div>
+            <div class="project-card">
+              <h3>Property Rental</h3>
+              <p>
+                PropertyRental is a full-featured, JavaScript-based web
+                application designed to streamline the process of finding,
+                listing real estate properties and contacting the relevant
+                owners. Whether you're looking to rent, buy, or list properties,
+                this platform serves as a centralized hub, making discovery and
+                management effortless for users.
+              </p>
+              <div class="project-links">
+                <a
+                  href="https://github.com/sandeshkhadka10/PropertyRental"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >GitHub</a
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- -------------- CONTACT BOX ---------------- -->
+        <section class="section" id="contact">
+          <div class="top-header">
+            <h1>Get in touch</h1>
+            <span>Do you have a project in your mind? Contact me here</span>
+          </div>
+          <div class="row">
+            <div class="col contact-col">
+              <div class="contact-cards">
+                <a
+                  class="contact-card"
+                  href="mailto:sandeshkhadka551@gmail.com"
+                >
+                  <span class="contact-icon"
+                    ><i class="uil uil-envelope"></i
+                  ></span>
+                  <div class="contact-details">
+                    <h3>Email</h3>
+                  </div>
+                </a>
+                <a
+                  class="contact-card"
+                  href="https://github.com/sandeshkhadka10"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span class="contact-icon"
+                    ><i class="uil uil-github-alt"></i
+                  ></span>
+                  <div class="contact-details">
+                    <h3>GitHub</h3>
+                  </div>
+                </a>
+                <a
+                  class="contact-card"
+                  href="https://www.linkedin.com/in/sandesh-khadka-s2004/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span class="contact-icon"
+                    ><i class="uil uil-linkedin-alt"></i
+                  ></span>
+                  <div class="contact-details">
+                    <h3>LinkedIn</h3>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- --------------- FOOTER --------------- -->
+      <footer>
+        <div class="bottom-footer">
+          <p>
+            Copyright &copy;
+            <a href="#home" style="text-decoration: none">Sandesh Khadka</a> -
+            All rights reserved
+          </p>
+        </div>
+      </footer>
+    </div>
+
+    <!-- ----- TYPING JS Link ----- -->
+    <!-- linked with Typed.js for typing effect -->
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
+    <!-- linked with scroll reveal for better scrolling presentation -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+    <!-- linked with js -->
+    <script src="app.js"></script>
+  </body>
+</html>
