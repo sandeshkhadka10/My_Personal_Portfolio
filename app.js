@@ -21,6 +21,15 @@ window.addEventListener("load", () => {
   }
 });
 
+window.addEventListener("pageshow", (event) => {
+  if (event.persisted) {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    if (window.location.hash) {
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+  }
+});
+
 /* ----- ADD SHADOW ON NAVIGATION BAR WHILE SCROLLING ----- */
 window.onscroll = function() {headerShadow()};
 
