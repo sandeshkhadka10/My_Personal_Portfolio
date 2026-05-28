@@ -54,11 +54,13 @@ var typingEffect = new Typed(".typedText",{
 
 
 /* ----- ## -- SCROLL REVEAL ANIMATION -- ## ----- */
+const isMobileView = window.matchMedia("(max-width: 900px)").matches;
+
 const sr = ScrollReveal({
       origin: 'top',
-      distance: '80px',
-      duration: 2000,
-      reset: true     
+  distance: isMobileView ? '0px' : '80px',
+  duration: isMobileView ? 1200 : 2000,
+  reset: !isMobileView     
 })
 
 /* -- HOME -- */
@@ -83,9 +85,9 @@ sr.reveal('.top-header',{})
 /* -- ABOUT INFO & CONTACT INFO -- */
 const srLeft = ScrollReveal({
 origin: 'left',
-distance: '80px',
-duration: 2000,
-reset: true
+distance: isMobileView ? '0px' : '80px',
+duration: isMobileView ? 1200 : 2000,
+reset: !isMobileView
 })
 
 srLeft.reveal('.about-info',{delay: 100})
@@ -94,9 +96,9 @@ srLeft.reveal('.contact-card',{interval: 120})
 /* -- ABOUT SKILLS & FORM BOX -- */
 const srRight = ScrollReveal({
 origin: 'right',
-distance: '80px',
-duration: 2000,
-reset: true
+distance: isMobileView ? '0px' : '80px',
+duration: isMobileView ? 1200 : 2000,
+reset: !isMobileView
 })
 
 srRight.reveal('.skills-box',{delay: 100})
