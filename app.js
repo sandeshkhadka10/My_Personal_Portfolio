@@ -110,26 +110,51 @@ srRight.reveal('.skills-box',{delay: 100})
 const sections = document.querySelectorAll('section[id]')
 
 function scrollActive() {
-const scrollY = window.scrollY;
+  const navHeader = document.getElementById("header");
+  const headerHeight = navHeader ? navHeader.offsetHeight : 90;
+  const viewportHeight = window.innerHeight;
+  let activeSectionId = null;
+  let maxVisible = 0;
 
-sections.forEach(current =>{
-  const sectionHeight = current.offsetHeight,
-      sectionTop = current.offsetTop - 50,
-    sectionId = current.getAttribute('id')
+  sections.forEach((section) => {
+    const rect = section.getBoundingClientRect();
+    const top = Math.max(rect.top, headerHeight);
+    const bottom = Math.min(rect.bottom, viewportHeight);
+    const visibleHeight = bottom - top;
 
-  if(scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) { 
+    if (visibleHeight > maxVisible) {
+      maxVisible = visibleHeight;
+      activeSectionId = section.getAttribute("id");
+    }
+  });
 
-      document.querySelector('.nav-menu a[href*=' + sectionId + ']').classList.add('active-link')
+  document.querySelectorAll(".nav-menu a").forEach((link) => {
+    link.classList.remove("active-link");
+  });
 
-  }  else {
-
-    document.querySelector('.nav-menu a[href*=' + sectionId + ']').classList.remove('active-link')
-
+  if (activeSectionId) {
+    const activeLink = document.querySelector(
+      `.nav-menu a[href="#${activeSectionId}"]`
+    );
+    if (activeLink) {
+      activeLink.classList.add("active-link");
+    }
   }
-})
 }
 
 window.addEventListener('scroll', scrollActive)
+window.addEventListener('load', scrollActive)
+window.addEventListener('hashchange', scrollActive)
+
+document.querySelectorAll('.nav-menu a').forEach((link) => {
+  link.addEventListener('click', () => {
+    document.querySelectorAll('.nav-menu a').forEach((item) => {
+      item.classList.remove('active-link');
+    });
+    link.classList.add('active-link');
+    setTimeout(scrollActive, 300);
+  });
+});
 
 // Jump to contact section when clicking Hire Me button
 let hireMeBtn = document.getElementById("hireMeBtn");

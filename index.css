@@ -556,6 +556,7 @@ nav{
 /* ----- MAIN BOX ----- */
 .section{
     padding-block: 5em;
+    scroll-margin-top: 100px;
 }
 .row{
     display: flex;
@@ -1045,6 +1046,16 @@ footer{
 
 /* ----- MEDIA QUERY == 900px / RESPONSIVE ----- */
 @media only screen and (max-width: 900px) {
+    .section{
+        scroll-margin-top: 90px;
+    }
+    #education,
+    #experience{
+        min-height: 80vh;
+    }
+    #contact{
+        min-height: 60vh;
+    }
     nav{
         justify-content: flex-start;
         gap: 10px;
