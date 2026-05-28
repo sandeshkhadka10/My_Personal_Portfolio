@@ -138,3 +138,136 @@ darkMode.addEventListener("click",function(){
     icon.src = "assests/moon.png";
   }
 });
+
+// project slider with swipe and pagination
+const projectTrack = document.querySelector(".project-track");
+const projectCards = projectTrack
+  ? Array.from(projectTrack.querySelectorAll(".project-card"))
+  : [];
+const projectPrev = document.querySelector(".project-nav.prev");
+const projectNext = document.querySelector(".project-nav.next");
+const projectDots = document.getElementById("projectDots");
+
+if (projectTrack && projectCards.length > 0) {
+  let activeIndex = 0;
+  let rafId = null;
+  let touchStartX = null;
+
+  const updateButtons = () => {
+    if (projectPrev) {
+      projectPrev.disabled = false;
+    }
+    if (projectNext) {
+      projectNext.disabled = false;
+    }
+  };
+
+  const updateDots = () => {
+    if (!projectDots) {
+      return;
+    }
+    const dots = Array.from(projectDots.querySelectorAll(".project-dot"));
+    dots.forEach((dot, index) => {
+      dot.classList.toggle("active", index === activeIndex);
+      dot.setAttribute("aria-current", index === activeIndex ? "true" : "false");
+    });
+  };
+
+  const setActiveIndex = (index) => {
+    activeIndex = index;
+    updateButtons();
+    updateDots();
+  };
+
+  const normalizeIndex = (index) => {
+    const totalProjects = projectCards.length;
+    return ((index % totalProjects) + totalProjects) % totalProjects;
+  };
+
+  const scrollToIndex = (index, behavior = "smooth") => {
+    const nextIndex = normalizeIndex(index);
+    const targetCard = projectCards[nextIndex];
+    if (!targetCard) {
+      return;
+    }
+    targetCard.scrollIntoView({
+      behavior,
+      block: "nearest",
+      inline: "start"
+    });
+    setActiveIndex(nextIndex);
+  };
+
+  const findClosestIndex = () => {
+    const trackRect = projectTrack.getBoundingClientRect();
+    let closestIndex = 0;
+    let closestDistance = Number.POSITIVE_INFINITY;
+    projectCards.forEach((card, index) => {
+      const cardRect = card.getBoundingClientRect();
+      const distance = Math.abs(cardRect.left - trackRect.left);
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    });
+    return closestIndex;
+  };
+
+  const handleScroll = () => {
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+    }
+    rafId = requestAnimationFrame(() => {
+      const closestIndex = findClosestIndex();
+      if (closestIndex !== activeIndex) {
+        setActiveIndex(closestIndex);
+      }
+    });
+  };
+
+  if (projectDots) {
+    projectCards.forEach((_, index) => {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "project-dot";
+      dot.setAttribute("aria-label", `Go to project ${index + 1}`);
+      dot.addEventListener("click", () => scrollToIndex(index));
+      projectDots.appendChild(dot);
+    });
+  }
+
+  if (projectPrev) {
+    projectPrev.addEventListener("click", () => scrollToIndex(activeIndex - 1));
+  }
+  if (projectNext) {
+    projectNext.addEventListener("click", () => scrollToIndex(activeIndex + 1));
+  }
+
+  projectTrack.addEventListener("touchstart", (event) => {
+    touchStartX = event.touches[0].clientX;
+  }, { passive: true });
+
+  projectTrack.addEventListener("touchend", (event) => {
+    if (touchStartX === null) {
+      return;
+    }
+
+    const touchEndX = event.changedTouches[0].clientX;
+    const swipeDistance = touchStartX - touchEndX;
+    const swipeThreshold = 40;
+    const lastProjectIndex = projectCards.length - 1;
+
+    if (swipeDistance > swipeThreshold && activeIndex === lastProjectIndex) {
+      scrollToIndex(0);
+    } else if (swipeDistance < -swipeThreshold && activeIndex === 0) {
+      scrollToIndex(lastProjectIndex);
+    }
+
+    touchStartX = null;
+  }, { passive: true });
+
+  projectTrack.addEventListener("scroll", handleScroll, { passive: true });
+  window.addEventListener("resize", () => scrollToIndex(activeIndex, "auto"));
+
+  scrollToIndex(0, "auto");
+}

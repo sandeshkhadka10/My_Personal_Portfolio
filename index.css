@@ -218,6 +218,17 @@ body.dark-mode .project-links a:hover {
     color: #111;
     border-color: var(--second-color);
 }
+body.dark-mode .project-nav{
+    background: rgb(33, 33, 33);
+    border-color: rgba(255, 255, 255, 0.18);
+    color: var(--color-white);
+}
+body.dark-mode .project-dot{
+    background: rgba(255, 255, 255, 0.25);
+}
+body.dark-mode .project-dot.active{
+    background: var(--second-color);
+}
 
 body.dark-mode .education-card,
 body.dark-mode .experience-card {
@@ -651,24 +662,45 @@ h3{
 }
 
 /* ----- PROJECTS BOX ----- */
-.project-container{
+.project-slider{
     display: grid;
-    grid-template-columns: repeat(2, minmax(280px, 1fr));
-    width: 100%;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 14px;
+    width: min(100%, 720px);
+    margin: 0 auto;
+}
+.project-viewport{
+    overflow: hidden;
+    padding-inline: 4px;
+}
+.project-track{
+    display: flex;
     gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: 6px 0 18px;
+    scrollbar-width: none;
+}
+.project-track::-webkit-scrollbar{
+    display: none;
 }
 .project-card{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 14px;
-    min-height: 245px;
+    min-height: 300px;
     background: var(--color-white);
     border-radius: 20px;
     border: 1px solid rgba(0, 0, 0, 0.08);
     box-shadow: 0 10px 22px var(--first-shadow-color);
     padding: 22px 20px;
     transition: transform .28s ease, box-shadow .28s ease;
+    scroll-snap-align: start;
+    flex: 0 0 100%;
 }
 .project-card:hover{
     transform: translateY(-6px);
@@ -710,6 +742,51 @@ h3{
     cursor: default;
     opacity: .85;
 }
+.project-nav{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: var(--color-white);
+    color: var(--text-color-second);
+    cursor: pointer;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    box-shadow: 0 6px 16px var(--first-shadow-color);
+}
+.project-nav:hover{
+    transform: translateY(-2px);
+    border-color: var(--second-color);
+}
+.project-nav:disabled{
+    opacity: .4;
+    cursor: not-allowed;
+    transform: none;
+}
+.project-nav i{
+    font-size: 22px;
+}
+.project-dots{
+    margin-top: 18px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.project-dot{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: #cfcfcf;
+    cursor: pointer;
+    transition: transform .2s ease, background .2s ease;
+}
+.project-dot.active{
+    background: var(--second-color);
+    transform: scale(1.2);
+}
 
 /* ----- EDUCATION / EXPERIENCE BOX ----- */
 .education-container{
@@ -737,6 +814,7 @@ h3{
     box-shadow: 0 10px 22px var(--first-shadow-color);
     padding: 22px 20px;
     transition: transform .28s ease, box-shadow .28s ease;
+    min-height: 300px;
 }
 .education-card:hover,
 .experience-card:hover{
@@ -771,6 +849,16 @@ h3{
     color: #5f5f5f;
     font-size: 15px;
     line-height: 1.6;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 6;
+}
+.project-card p{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 6;
 }
 .education-tags,
 .experience-tags{
@@ -1041,9 +1129,12 @@ footer{
     #contact .contact-cards{
         grid-template-columns: 1fr;
     }
-    .project-container{
+    .project-slider{
         grid-template-columns: 1fr;
-        gap: 18px;
+        gap: 12px;
+    }
+    .project-nav{
+        display: none;
     }
     .education-container,
     .experience-container{
