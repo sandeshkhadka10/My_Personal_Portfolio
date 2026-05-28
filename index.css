@@ -1045,6 +1045,11 @@ footer{
 
 /* ----- MEDIA QUERY == 900px / RESPONSIVE ----- */
 @media only screen and (max-width: 900px) {
+    nav{
+        justify-content: flex-start;
+        gap: 10px;
+        padding-inline: 5vw;
+    }
     #icon {
         position: static;
         width: 34px;
@@ -1077,6 +1082,11 @@ footer{
         display: flex;
         align-items: center;
         justify-content: center;
+        margin-left: 4px;
+    }
+    .nav-actions{
+        margin-left: auto;
+        gap: 6px;
     }
     .featured-box{
         flex-direction: column;
