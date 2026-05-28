@@ -238,10 +238,10 @@ if (projectTrack && projectCards.length > 0) {
     if (!targetCard) {
       return;
     }
-    targetCard.scrollIntoView({
-      behavior,
-      block: "nearest",
-      inline: "start"
+    // Scroll only inside the horizontal project track to avoid page-level jump on load.
+    projectTrack.scrollTo({
+      left: targetCard.offsetLeft - projectTrack.offsetLeft,
+      behavior
     });
     setActiveIndex(nextIndex);
   };
